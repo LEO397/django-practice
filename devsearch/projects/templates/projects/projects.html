@@ -4,22 +4,34 @@
 
 <h1>Projects Template</h1>
 
-<p>This is the {{pagetype}} page</p>
 
-{% if number > 10 %}
-<p>The number is grater than 10</p>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Projects</th>
+        <th>Positive votes</th>
+        <th>Votes</th>
+        <th>Created</th>
+    </tr>
+    {% for project in projectsObj %}
 
-{% elif number == 10 %} 
-<p>The number is exactly 10 </p>
+    <tr>
+        <td>{{project.id}}</td>
+        <td>{{project.title}}</td>
+        <td>{{project.vote_ratio}}</td>
+        <td>{{project.vote_total}}</td>
+        <td>{{project.created}}</td>
+        <td ><a href="{% url 'project' project.id %}">View</a></td>
 
-{% else %}
-<p>The number is smaller than 10</p> 
+    </tr>
+    {% endfor %}
 
-{% endif %}
 
-{% for project in projects %}
-    <p><a href= "{% url 'project' project.id %}" >{{project.title}}</a> ---- {{project.description}}</p>
-{% endfor %}
+</table>
+
+
+
+
 
 <!-- <p>This is a random set of words that we are using as filler in theparagraph tags of this html page and it does not have to make
     any sense at all as long as there are words from the english dictionary.
