@@ -1,6 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from django.http import HttpResponse
+
+from .forms import ProjectForms
+
+from .models import Project
 
 projectsList = [
     {
@@ -22,16 +26,25 @@ projectsList = [
 
 
 def projects(request):
-    page = "projects"
-    number = 15
-    context = {'projects': projectsList, 'number': number}
-    return render(request, 'projects/projects.html', context)
+    projectsObj = Project.objects.all()
+    # context = {'projects': projectsList, 'number': number}
+    return render(request, 'projects/projects.html', {'projectsObj': projectsObj})
 
 
 def project(request, primaryKey):
-    projectObj = None
-    for i in projectsList:
-        if i['id'] == primaryKey:
-            projectObj = i
+    projectObj = Project.objects.get(id=primaryKey)
     return render(request, 'projects/single-project.html', {'project': projectObj})
+
+
+def createProject(request):
+    form = ProjectForms()
+
+    if request.method == 'POST':
+        form = ProjectForms(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('projects')
+
+    context = {'form': form}
+    return render(request, 'projects/project_form.html', context)
 # Create your views here.
