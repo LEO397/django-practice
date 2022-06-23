@@ -1,3 +1,4 @@
+from unicodedata import name
 from django.urls import path
 
 from . import views
@@ -6,5 +7,9 @@ urlpatterns = [
     path('', views.projects, name="projects"),
     path('project/<str:primaryKey>', views.project, name="project"),
 
-    path('create-project', views.createProject, name="create-project")
+    path('create-project', views.createProject, name="create-project"),
+
+    path('update-project/<str:pk>', views.updareProject, name='update-project'),
+
+    path('delete-project/<str:pk>', views.deleteProject, name="delete-project")
 ]
