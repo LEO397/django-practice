@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-m8^69-n-g670m60#10oakc3=pg%$3yx$9)jucpi7dku#i#@$h1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -43,6 +43,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -130,6 +132,9 @@ STATICFILES_DIRS = [
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# for production
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
