@@ -1,5 +1,7 @@
 from multiprocessing import context
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+
 
 from django.http import HttpResponse
 
@@ -37,6 +39,7 @@ def project(request, primaryKey):
     return render(request, 'projects/single-project.html', {'project': projectObj})
 
 
+@login_required(login_url='login')
 def createProject(request):
     form = ProjectForms()
 
@@ -51,6 +54,7 @@ def createProject(request):
 # Create your views here.
 
 
+@login_required(login_url='login')
 def updareProject(request, pk):
     project = Project.objects.get(id=pk)
     form = ProjectForms(instance=project)
@@ -65,6 +69,7 @@ def updareProject(request, pk):
     return render(request, 'projects/project_form.html', context)
 
 
+@login_required(login_url='login')
 def deleteProject(request, pk):
     project = Project.objects.get(id=pk)
     if request.method == 'POST':
